@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.codest.minimalconfig.sping.boot.RemoteConfigAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=\
+cn.codest.minimalconfig.sping.boot.RemoteConfigurationContextInitializer
