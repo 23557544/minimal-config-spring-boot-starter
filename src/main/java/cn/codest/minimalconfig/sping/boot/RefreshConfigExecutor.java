@@ -10,6 +10,7 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 
+import java.util.Optional;
 import java.util.Properties;
 
 public class RefreshConfigExecutor extends RemoteConfigSupport implements BeanFactoryAware, EnvironmentAware {
@@ -24,10 +25,12 @@ public class RefreshConfigExecutor extends RemoteConfigSupport implements BeanFa
 
     public void execute() {
         Properties current = providerFactory.getProperties();
-        // 更新Environment
-        addPropertySource(this.environment, current);
-        // 更新bean实例的成员变量属性值
-        updateField(beanFactory, environment, typeConverter, current);
+        if (Optional.ofNullable(current).isPresent()) {
+            // 更新Environment
+            addPropertySource(this.environment, current);
+            // 更新bean实例的成员变量属性值
+            updateField(beanFactory, environment, typeConverter, current);
+        }
     }
 
     @Override
